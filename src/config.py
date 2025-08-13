@@ -4,14 +4,20 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+# Thư mục gốc của dự án (tự động lấy đúng path trên Cloud và local)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # src/
+PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, ".."))  # gốc repo
+
 # Đường dẫn thư mục chứa PDF gốc
-PDF_RAW_DIR = r"E:\WORK\project\streamlit_cloud\data\raw_pdfs"
+PDF_RAW_DIR = os.path.join(PROJECT_ROOT, "data", "raw_pdfs")
+os.makedirs(PDF_RAW_DIR, exist_ok=True)  # tạo nếu chưa có
 
 # Đường dẫn thư mục lưu trữ vector database
-VECTOR_DB_DIR = r"E:\WORK\project\streamlit_cloud\data\processed_data\chroma_db"
+VECTOR_DB_DIR = os.path.join(PROJECT_ROOT, "data", "processed_data", "chroma_db")
+os.makedirs(VECTOR_DB_DIR, exist_ok=True)
 
-# Đường dẫn tệp ghi log
-LOG_FILE_PATH = r"D:\work\rag_chatbot_project\logs\logschat_logs.xlsx"
+# Đường dẫn tệp ghi log (trong repo hoặc có thể đưa vào /tmp khi Cloud)
+LOG_FILE_PATH = os.path.join(PROJECT_ROOT, "logs", "chat_logs.xlsx")
 
 # HuggingFace Embedding Model
 EMBEDDING_MODEL_NAME = "dangvantuan/vietnamese-document-embedding"
