@@ -1,3 +1,11 @@
+import sys
+try:
+    import pysqlite3
+    sys.modules["sqlite3"] = pysqlite3
+    sys.modules["sqlite3"].dbapi2 = pysqlite3
+except ImportError:
+    pass
+
 import gc, chromadb
 from chromadb.config import Settings
 from src.config import VECTOR_DB_DIR
